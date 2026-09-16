@@ -1,0 +1,14 @@
+svg2vector
+
+Conversion algorithms are adapted from Android Open Source Project
+com.android.ide.common.vectordrawable, distributed in
+com.android.tools:sdk-common:31.13.1.
+
+Copyright (C) 2015 The Android Open Source Project
+Licensed under the Apache License, Version 2.0.
+
+This Rust implementation is independent of Android Studio and is not an
+Android or Google product. It does not bundle or invoke the Java converter.
+
+Third-party Rust libraries retain their respective licenses, as declared in
+their package manifests and source distributions.

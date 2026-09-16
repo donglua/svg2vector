@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0" stop-color="#ff6b7b"/>
+      <stop offset="1" stop-color="#c52b45"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#accent)" fill-rule="evenodd"
+        d="M4 2H20Q22 2 22 4V20Q22 22 20 22H4Q2 22 2 20V4Q2 2 4 2Z M8 7H16V17H8Z"/>
+</svg>
