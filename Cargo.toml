@@ -5,6 +5,8 @@ edition = "2024"
 rust-version = "1.87"
 description = "Convert SVG icons into Android VectorDrawable XML without a JVM"
 license = "Apache-2.0"
+repository = "https://github.com/donglua/svg2vector"
+readme = "README.md"
 keywords = ["svg", "android", "vectordrawable", "cli"]
 categories = ["command-line-utilities", "graphics"]
 
