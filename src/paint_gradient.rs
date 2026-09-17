@@ -92,13 +92,14 @@ impl<'a, 'input> Definition<'a, 'input> {
                 .unwrap_or(1.0);
             let current_color = inherited(&stylesheet, node, "color")?;
             let value = inherited(&stylesheet, node, "stop-color")?;
-            let color = color::parse(
-                value.as_deref().unwrap_or("black"),
-                current_color.as_deref().unwrap_or("black"),
-            )?;
+            let raw_color = value.as_deref().unwrap_or("black");
+            let color = match color::parse(raw_color, current_color.as_deref().unwrap_or("black")) {
+                Ok(color) => color::argb(color, opacity * stop_opacity.clamp(0.0, 1.0)),
+                Err(_) => raw_color.to_owned(),
+            };
             result.push(Stop {
                 offset: greatest_offset,
-                color: color::argb(color, opacity * stop_opacity.clamp(0.0, 1.0)),
+                color,
             });
         }
         if result.len() == 1 {

@@ -109,6 +109,24 @@ fn stop_alpha_composes_when_styles_and_paint_opacity_apply() {
 }
 
 #[test]
+fn invalid_stop_color_is_preserved_when_sdk_common_warns_and_continues() {
+    // Given a gradient stop color that sdk-common cannot parse as a VectorDrawable color.
+    let source = r##"<svg><linearGradient id="g"><stop stop-color="var(--brand)" stop-opacity=".25"/></linearGradient></svg>"##;
+    // When the referenced gradient is resolved.
+    let result = paint(source, 0.5, Transform::IDENTITY).unwrap();
+    // Then the original value is preserved without applying opacity, matching sdk-common 32.4.0.
+    match result {
+        Paint::Gradient(gradient) => {
+            assert_eq!(gradient.stops.len(), 2);
+            assert_eq!(gradient.stops[0].color, "var(--brand)");
+            assert_eq!(gradient.stops[1].offset, 1.0);
+            assert_eq!(gradient.stops[1].color, "var(--brand)");
+        }
+        other => panic!("unexpected paint {other:?}"),
+    }
+}
+
+#[test]
 fn radial_rejects_when_focal_point_or_ellipse_cannot_be_represented() {
     // Given unsupported radial geometry and malformed coordinate values.
     let attributes = [

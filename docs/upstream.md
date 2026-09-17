@@ -4,12 +4,14 @@
 
 ## 固定版本
 
-- Maven 坐标：`com.android.tools:sdk-common:31.13.1`
-- [官方源码包](https://dl.google.com/dl/android/maven2/com/android/tools/sdk-common/31.13.1/sdk-common-31.13.1-sources.jar)
-- 源码包 SHA-256：`d628ff3faef817facebd17b6befbc32f13ec8719fc6502ac29c7f8820fcfdff9`
+- Maven 坐标：`com.android.tools:sdk-common:32.4.0`
+- [官方源码包](https://dl.google.com/dl/android/maven2/com/android/tools/sdk-common/32.4.0/sdk-common-32.4.0-sources.jar)
+- 源码包 SHA-256：`e09a0de2b21ff620c8a5e91ec129b142e3833968fc4e7ce93a692033c10e9b02`
 - [官方源码浏览入口](https://cs.android.com/android-studio/platform/tools/base/+/mirror-goog-studio-main:sdk-common/src/main/java/com/android/ide/common/vectordrawable/Svg2Vector.java)
 
 源码浏览入口跟随分支更新；当前行为基线以固定 Maven 版本为准。
+
+2026-09-17 核对 Google Maven 元数据时，`32.4.0` 是 `sdk-common` 的最新稳定版；同时核对了 latest/release `32.5.0-alpha05`，其 `com/android/ide/common/vectordrawable` 转换源码与 `32.4.0` 一致。相对旧基线 `31.13.1`，相关源码只有 `SvgGradientNode`、`VdUtil`、`VdOverrideInfo` 和 `IllegalVectorDrawableResourceRefException` 有差异；其中转换行为差异为 `SvgGradientNode` 对无效渐变 stop 颜色改为 warning 后继续写出原值。
 
 ## 模块对应
 
@@ -31,6 +33,7 @@
 - `rgba()` 的 alpha 按 SVG/CSS 的 `0..1` 或百分比解释。
 - 重复图层 ID 按官方引用表规则由后出现的定义覆盖。
 - 渐变使用局部边界与完整变换矩阵，修正官方算法在旋转、非均匀缩放和偏移边界上的插值误差；用户坐标渐变的省略值按 SVG 百分比默认值计算。
+- 最新 `SvgGradientNode` 遇到无法解析的渐变 stop 颜色时会记录 warning 并继续写出原值；本项目与该行为保持一致。
 - 多图形裁剪需要几何并集运算，当前明确拒绝，避免将轮廓拼接后错误地消除重叠区域。单个复合路径的孔洞保持原有填充规则。
 - 非均匀变换下的描边宽度沿用官方的行列式平方根近似。
 - 曲线边界沿用官方控制点包围盒，未计算贝塞尔曲线的精确极值；边界相关的渐变、裁剪可能与浏览器存在差异。
